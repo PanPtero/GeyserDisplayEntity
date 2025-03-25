@@ -5,7 +5,6 @@ import me.zimzaza4.geyserdisplayentity.Settings;
 import org.cloudburstmc.math.imaginary.Quaternionf;
 import org.cloudburstmc.math.matrix.Matrix3f;
 import org.cloudburstmc.math.vector.Vector3f;
-import org.cloudburstmc.math.vector.Vector4f;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
 import org.cloudburstmc.protocol.bedrock.packet.MoveEntityAbsolutePacket;
 import org.geysermc.geyser.entity.EntityDefinition;
@@ -101,17 +100,17 @@ public class SlotDisplayEntity extends Entity {
         propertyManager.add("geyser:s_z", scale.getZ());
     }
 
-    public void setLeftRotation(EntityMetadata<Vector4f, ?> entityMetadata) {
+    public void setLeftRotation(EntityMetadata<Quaternionf, ?> entityMetadata) {
         setRotation(entityMetadata.getValue());
         rotationUpdated = true;
     }
 
-    public void setRightRotation(EntityMetadata<Vector4f, ?> entityMetadata) {
+    public void setRightRotation(EntityMetadata<Quaternionf, ?> entityMetadata) {
         setRotation(entityMetadata.getValue());
         rotationUpdated = true;
     }
 
-    protected void setRotation(Vector4f qRotation) {
+    protected void setRotation(Quaternionf qRotation) {
         Quaternionf q = Quaternionf.from(qRotation.getX(), qRotation.getY(), qRotation.getZ(), qRotation.getW());
         float s = magnitude(q);
         Vector3f r = toEulerZYX(q);
@@ -156,20 +155,6 @@ public class SlotDisplayEntity extends Entity {
         float r10 = m.get(1, 0);
         float r11 = m.get(1, 1);
 
-        // float w = qn.getW();
-        // float x = qn.getX();
-        // float y = qn.getY();
-        // float z = qn.getZ();
-
-        // float yaw = (float) Math.atan2(2 * (y * w - x * z), 1 - 2 * (y * y + z * z));
-        // float pitch = (float) Math.asin(2 * (x * y + z * w));
-        // float roll = (float) Math.atan2(2 * (x * w - y * z), 1 - 2 * (x * x + z * z));
-
-        // float x = Math.abs(r20) < 0.9999999F ? (float) Math.atan2(r21, r22) : 0F;
-        // float y = - MathUtils.clamp((float) Math.asin(r20), -1F, 1F);
-        // float z = Math.abs(r20) < 0.9999999F ? (float) Math.atan2(r10, r00) : (float)
-        // Math.atan2(- r01, r11);
-
         float x, y, z;
 
         if (Math.abs(r20) < 0.9999999F) {
@@ -187,7 +172,7 @@ public class SlotDisplayEntity extends Entity {
     }
 
     public float magnitude(Quaternionf q) {
-        return (float) q.getW() * q.getW() + q.getX() * q.getX() + q.getY() * q.getY() + q.getZ() * q.getZ();
+        return q.getW() * q.getW() + q.getX() * q.getX() + q.getY() * q.getY() + q.getZ() * q.getZ();
     }
 
     protected void hackRotation(float x, float y, float z) {
