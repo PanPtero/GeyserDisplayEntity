@@ -13,8 +13,7 @@ public class Settings extends YamlConfig {
     public static final Settings IMP = new Settings();
 
     @Comment("General display options")
-    @Create
-    public DisplayEntityOptions GENERAL;
+    public DisplayEntityOptions GENERAL = new DisplayEntityOptions();
 
     @Comment("Invisible item types")
     public List<String> HIDE_TYPES = List.of("minecraft:leather_horse_armor");
@@ -28,8 +27,7 @@ public class Settings extends YamlConfig {
         @Comment("Custom model data, -1 represent ignore custom model data")
         public int MODEL_DATA = -1;
         @Comment("options")
-        @Create
-        public DisplayEntityOptions OPTIONS;
+        public DisplayEntityOptions OPTIONS = new DisplayEntityOptions();
     }
 
 
