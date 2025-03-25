@@ -4,7 +4,6 @@ public class DeltaUtils {
     public static double calculateDeltaE(double[] lab1, double[] lab2) {
         // CIEDE2000 algorithm implementation
         double deltaL = lab2[0] - lab1[0];
-        double lBar = (lab1[0] + lab2[0]) / 2.0;
         double c1 = Math.sqrt(lab1[1] * lab1[1] + lab1[2] * lab1[2]);
         double c2 = Math.sqrt(lab2[1] * lab2[1] + lab2[2] * lab2[2]);
         double cBar = (c1 + c2) / 2.0;
@@ -12,7 +11,6 @@ public class DeltaUtils {
         double a2Prime = lab2[1] + lab2[1] / 2.0 * (1 - Math.sqrt(Math.pow(cBar, 7) / (Math.pow(cBar, 7) + Math.pow(25, 7))));
         double c1Prime = Math.sqrt(a1Prime * a1Prime + lab1[2] * lab1[2]);
         double c2Prime = Math.sqrt(a2Prime * a2Prime + lab2[2] * lab2[2]);
-        double cBarPrime = (c1Prime + c2Prime) / 2.0;
         double deltaCPrime = c2Prime - c1Prime;
         double h1Prime = Math.atan2(lab1[2], a1Prime);
         if (h1Prime < 0) h1Prime += 2 * Math.PI;
