@@ -101,17 +101,18 @@ public class SlotDisplayEntity extends Entity {
         propertyManager.add("geyser:s_z", scale.getZ());
     }
 
-    public void setLeftRotation(EntityMetadata<Quaternionf, ?> entityMetadata) {
+    public void setLeftRotation(EntityMetadata<Vector4f, ?> entityMetadata) {
         setRotation(entityMetadata.getValue());
         rotationUpdated = true;
     }
 
-    public void setRightRotation(EntityMetadata<Quaternionf, ?> entityMetadata) {
+    public void setRightRotation(EntityMetadata<Vector4f, ?> entityMetadata) {
         setRotation(entityMetadata.getValue());
         rotationUpdated = true;
     }
 
-    protected void setRotation(Quaternionf q) {
+    protected void setRotation(Vector4f qRotation) {
+        Quaternionf q = Quaternionf.from(qRotation.getX(), qRotation.getY(), qRotation.getZ(), qRotation.getW());
         float s = magnitude(q);
         Vector3f r = toEulerZYX(q);
 
